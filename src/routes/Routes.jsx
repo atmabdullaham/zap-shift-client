@@ -5,10 +5,12 @@ import RootLayout from "../layout/RootLayout";
 import Login from "../pages/auth/login/Login";
 import Register from "../pages/auth/register/Register";
 import Coverage from "../pages/coverage/Coverage";
+import ApproveRiders from "../pages/dashboard/approveRider/ApproveRiders";
 import MyParcels from "../pages/dashboard/myparcels/MyParcels";
 import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancelled from "../pages/dashboard/payment/PaymentCancelled";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
+import PaymentHistory from "../pages/dashboard/paymentHistory/PaymentHistory";
 import Home from "../pages/home/home/Home";
 import Rider from "../pages/rider/Rider";
 import SendParcel from "../pages/sendParcel/SendParcel";
@@ -35,6 +37,7 @@ const router = createBrowserRouter([
             <Rider></Rider>
           </PrivateRoute>
         ),
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
       },
       {
         path: "send-parcel",
@@ -85,6 +88,14 @@ const router = createBrowserRouter([
       {
         path: "payment-cancelled",
         Component: PaymentCancelled,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
+      },
+      {
+        path: "approve-riders",
+        Component: ApproveRiders,
       },
     ],
   },
