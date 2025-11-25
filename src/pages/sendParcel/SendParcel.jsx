@@ -1,11 +1,12 @@
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -46,6 +47,7 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
+    data.cost = cost;
     console.log("cost", cost);
     Swal.fire({
       title: "Agree with the cost?",
@@ -58,13 +60,17 @@ const SendParcel = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log("after saving parcel", res.data);
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Parcel Created, please pay",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+            navigate("/dashboard/my-parcels");
+          }
         });
-        // Swal.fire({
-        //   title: "Deleted!",
-        //   text: "Your file has been deleted.",
-        //   icon: "success",
-        // });
       }
     });
   };
