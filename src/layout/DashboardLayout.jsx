@@ -1,9 +1,12 @@
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaHistory } from "react-icons/fa";
+import { FaHistory, FaUser } from "react-icons/fa";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
+  console.log(role, "admin");
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -95,17 +98,36 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Payment History</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip
+            {role === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip
                 is-drawer-close:tooltip-right"
-                data-tip="Approve Riders"
-                to={"/dashboard/approve-riders"}
-              >
-                <RiMotorbikeFill />{" "}
-                <span className="is-drawer-close:hidden">Approve Riders</span>
-              </NavLink>
-            </li>
+                    data-tip="Approve Riders"
+                    to={"/dashboard/approve-riders"}
+                  >
+                    <RiMotorbikeFill />{" "}
+                    <span className="is-drawer-close:hidden">
+                      Approve Riders
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip
+                is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to={"/dashboard/users-management"}
+                  >
+                    <FaUser></FaUser>
+                    <span className="is-drawer-close:hidden">
+                      Users Management
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>

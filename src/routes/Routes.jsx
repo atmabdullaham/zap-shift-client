@@ -11,12 +11,15 @@ import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancelled from "../pages/dashboard/payment/PaymentCancelled";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
 import PaymentHistory from "../pages/dashboard/paymentHistory/PaymentHistory";
+import UsersManagement from "../pages/dashboard/usersManagement/UsersManagement";
 import Home from "../pages/home/home/Home";
 import Rider from "../pages/rider/Rider";
 import SendParcel from "../pages/sendParcel/SendParcel";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
+  // main layout
   {
     path: "/",
     Component: RootLayout,
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // auth layout
   {
     path: "/",
     Component: AuthLayout,
@@ -64,6 +68,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // dashboard layout
   {
     path: "dashboard",
     element: (
@@ -95,7 +100,19 @@ const router = createBrowserRouter([
       },
       {
         path: "approve-riders",
-        Component: ApproveRiders,
+        element: (
+          <AdminRoute>
+            <ApproveRiders></ApproveRiders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "users-management",
+        element: (
+          <AdminRoute>
+            <UsersManagement></UsersManagement>
+          </AdminRoute>
+        ),
       },
     ],
   },
