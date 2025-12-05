@@ -61,7 +61,8 @@ const ApproveRiders = () => {
               <th>Email</th>
               <th>Region</th>
               <th>District</th>
-              <th>Status</th>
+              <th>Appilication Status</th>
+              <th>Wrok Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -84,6 +85,7 @@ const ApproveRiders = () => {
                     {rider.status}
                   </p>
                 </td>
+                <td>{rider.workStatus}</td>
                 <td>
                   <button
                     onClick={() => handleRiderStatus(rider, "approved")}
